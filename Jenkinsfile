@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Checking out source code'
+                echo 'Checking out source code from release branch'
             }
         }
 
@@ -25,6 +25,21 @@ pipeline {
             steps {
                 echo 'Deploying the application'
             }
+        }
+
+        stage('Release') {
+            steps {
+                echo 'Release branch pipeline executed successfully'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline execution failed!'
         }
     }
 }
