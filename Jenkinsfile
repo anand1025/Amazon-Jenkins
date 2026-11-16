@@ -1,42 +1,45 @@
+
 pipeline {
     agent any
-    environment {
-        // Use PATH+EXTRA to append to PATH properly
-        PATH = "/usr/bin:/bin:/opt/homebrew/bin"
-    }
+
     stages {
-
-        stage('pull scm git ') {
+        stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/PraveenKuber/Amazon-Jenkins.git'
-            }
-        }
-        stage('compile ') {
-            steps {
-                sh 'mvn compile'
+                echo 'Checking out source code from release branch'
             }
         }
 
-        stage('build') {
+        stage('Build') {
             steps {
-                 sh 'mvn clean install'
+                echo 'Testing GitHub webhook trigger'
             }
         }
 
-        
+        stage('Test') {
+            steps {
+              echo 'GitHub webhook triggered Jenkins automatically'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the application'
+            }
+        }
+
+        stage('Release') {
+            steps {
+                echo 'Release branch pipeline executed successfully'
+            }
+        }
     }
 
-  post{
-
-  success{
-     echo 'Build success 1'
-  }
-    
-  failure{
-       echo 'Failure in the build'
-   }
-
-  }
-
-
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline execution failed!'
+        }
+    }
 }
